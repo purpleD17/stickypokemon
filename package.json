@@ -1,11 +1,16 @@
 {
   "name": "stickypokemon",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Demo for sticky session",
   "author": "purpleD17",
   "license": "UNLICENSED",
   "main": "start.js",
   "scripts": {
     "start": "node --use_strict start.js"
+  },
+  "dependencies": {
+    "express": "4.13.3",
+    "socket.io": "1.4.5",
+    "sticky-session": "1.0.2"
   }
 }
