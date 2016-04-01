@@ -1,37 +1,15 @@
-console.log("hello world");
+var http = require('http');
+var express = require('express');
+var app = express();
 
-var app = require("express")();
-var server = require("http").createServer(app);
-var sticky = require("sticky-session");
-var cluster = require("cluster"); // Only required if you want the worker id
-var io = require ("socket.io").listen(server);
 app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('ip', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
 
-
-app.get("/", function (req, res) {
-    res.send("pokemon");
+http.createServer(app).listen(app.get('port'), app.get('ip'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
 });
 
-var startServer = sticky.listen(server, app.get('port'));
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
 
-if (!startServer) {
-    // MASTER code here runs only in master process
-    console.log("MASTER with pid :" + process.pid);
-
-    server.once("listening", function() {
-            console.log("server started on port"+ port);}
-    );
-
-} else {
-    //WORKER code goes here, the main logical code
-    console.log("WORKER: " + cluster.worker.id + " with pid: " + process.pid);
-
-
-    io.on("connection", function(socket){
-        console.log("connection established on WORKER: " + cluster.worker.id);
-        socket.on("disconnect", function() {
-            console.log("WORKER: " + cluster.worker.id + " Got disconnect" );
-        });
-    });
-}
