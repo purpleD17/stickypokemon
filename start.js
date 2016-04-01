@@ -5,7 +5,7 @@ var server = require("http").createServer(app);
 var sticky = require("sticky-session");
 var cluster = require("cluster"); // Only required if you want the worker id
 var io = require ("socket.io").listen(server);
-var port = 80;
+var port = 3050;
 
 app.get("/", function (req, res) {
     res.send("pokemon");
