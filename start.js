@@ -1,10 +1,8 @@
-console.log("hello world");
-
 var app = require("express")();
 var server = require("http").createServer(app);
 var sticky = require("sticky-session");
 var cluster = require("cluster"); // Only required if you want the worker id
-var io = require ("socket.io").listen(server);
+var io = require ("socket.io")(server);
 app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('ip', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
 
